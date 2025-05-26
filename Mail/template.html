@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <style>
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #f6f8fb;
+            margin: 0;
+            padding: 0;
+        font-family: 'Helvetica', 'Arial', sans-serif  !important;
+
+        }
+        .container {
+            background: #fff;
+            max-width: 600px;
+            margin: 40px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 32px 24px;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .header h1 {
+            color: #ff7eb3;
+            margin: 0;
+            font-size: 2em;
+            font-family: 'Segoe UI', 'Verdana', sans-serif !important;
+        }
+        .order-details {
+            
+            margin: 24px 0;
+        }
+        .order-details h2 {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .details-table th, .details-table td {
+            text-align: left;
+            padding: 8px 6px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .details-table th {
+            background: #f6f8fb;
+            color: #555;
+        }
+        .summary {
+            margin-top: 24px;
+            background: #f6f8fb;
+            padding: 16px;
+            border-radius: 6px;
+        }
+        .summary p {
+            margin: 6px 0;
+            font-size: 1em;
+        }
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 0.95em;
+            margin-top: 32px;
+           
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 12px 28px;
+            background: #71bbfc;
+            color: #fff;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Thank You for Your Order, {{customer_name}}!</h1>
+            <p>Your order <strong>#{{order_number}}</strong> has been confirmed.</p>
+        </div>
+        <div class="order-details">
+            <h2>Order Details</h2>
+            <table class="details-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each items}}
+                    <tr>
+                        <td>{{name}},<span style="color: #7c7676;font-size: 0.6rem;">{{packof}} pcs</span></td>
+                        <td>{{quantity}}</td>
+                        <td><span style="text-decoration: line-through;font-size: 0.65rem;color: #7c7676;">{{mrp}} </span>{{price}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+        <div class="summary">
+            <p><strong>Order Date:</strong> {{order_date}}</p>
+            <p><strong>Shipping Address:</strong> {{shipping_address}}</p>
+            <p><strong>Total:</strong> <span style="color:#2e7d32;">{{order_total}}</span></p>
+        </div>
+        <a href="{{order_link}}" class="btn">View Your Order</a>
+        <div class="footer">
+            If you have any questions, reply to this email or contact our support.<br>
+            &copy; {{year}} MamaDreamCare. All rights reserved.
+        </div>
+    </div>
+    
+</body>
+</html>
