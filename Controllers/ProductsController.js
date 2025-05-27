@@ -3,10 +3,18 @@ const db = require('../Db/DbConnection');
 // Get all products
 exports.getAllProducts = async (req, res) => {
   try {
-    const [products] = await db.execute('SELECT * FROM products');
+const [products] = await db.execute(
+  `SELECT p.*,
+   CASE 
+       WHEN toff.id IS NOT NULL THEN true
+       ELSE false
+   END AS isTopOffer
+   FROM products p
+   LEFT JOIN todaysoffer toff ON p.id = toff.product_id`);
+   console.log(products);
     res.json(products);
   } catch (err) {
-    res.status(500).json({ message: 'Error fetching products' });
+    res.status(500).json({err, message: 'Error fetching products' });
   }
 };
 

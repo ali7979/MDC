@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../Db/DbConnection'); 
+require('dotenv').config();
 
 // Register User
 exports.registerUser = async (req, res) => {
@@ -68,7 +69,7 @@ exports.loginUser = async (req, res) => {
     }
 
     
-    const JWT_SECRET = "BCJSB323SCCBJBSCJS23SCCBJBSCJS23"; 
+    const JWT_SECRET = process.env.JWT_SECRET; 
     const token = jwt.sign(
       { id: user[0].id, isAdmin: user[0].isAdmin,email:user[0].email,phone:user[0].phone },
       JWT_SECRET,

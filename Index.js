@@ -53,7 +53,8 @@ console.log(user,token)
       //   user
       // });
 
-    res.redirect(`http://localhost:5173/login/success?token=${token}&name=${user.name}&email=${user.email}`);
+    const redirectUrl = `${process.env.FRONTEND_URL}/login/success?token=${token}&name=${user.name}&email=${user.email}`;
+    res.redirect(redirectUrl);
 
 
     });
