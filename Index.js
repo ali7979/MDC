@@ -49,13 +49,6 @@ app.get('/auth/google',
 const {user,token} =req.user;
 console.log(user,token)
 
-      // Successful authentication, redirect home.
-    //   res.redirect('/');
-      // res.json({
-      //   message: 'Login successful',
-      //   token,
-      //   user
-      // });
 
     const redirectUrl = `${process.env.FRONTEND_URL}/login/success?token=${token}&name=${user.name}&email=${user.email}`;
     res.redirect(redirectUrl);
