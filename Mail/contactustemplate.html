@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us Submission</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 520px;
+            margin: 48px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(44, 62, 80, 0.18);
+            padding: 38px 32px 32px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 50%;
+            opacity: 0.25;
+            z-index: 0;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 22px;
+            border-bottom: 1.5px solid #e6eaf1;
+            position: relative;
+            z-index: 1;
+        }
+        .header h2 {
+            color: #2d3e50;
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+        }
+        .header p {
+            color: #7b8ca7;
+            font-size: 1.08rem;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+        .details {
+            margin: 36px 0 0 0;
+            position: relative;
+            z-index: 1;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+        .details-table th, .details-table td {
+            text-align: left;
+            padding: 13px 12px;
+            font-size: 1.05rem;
+        }
+        .details-table th {
+            color: #6c7a89;
+            width: 120px;
+            background: #f4f8fb;
+            font-weight: 600;
+            border-radius: 8px 0 0 8px;
+            border-right: 2px solid #e6eaf1;
+        }
+        .details-table td {
+            color: #2d3e50;
+            background: #f9fbfd;
+            border-radius: 0 8px 8px 0;
+            font-weight: 500;
+        }
+        .message-section {
+            margin-top: 28px;
+            background: linear-gradient(135deg, #f4f8fb 60%, #e0eafc 100%);
+            border-radius: 12px;
+            padding: 22px 18px;
+            box-shadow: 0 2px 12px rgba(44, 62, 80, 0.06);
+        }
+        .message-section h4 {
+            margin: 0 0 10px 0;
+            color: #2d3e50;
+            font-size: 1.13rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .message-section p {
+            margin: 0;
+            color: #444;
+            font-size: 1.04rem;
+            line-height: 1.7;
+            word-break: break-word;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #a0a8b3;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+        .footer::before {
+            content: "";
+            display: block;
+            margin: 0 auto 12px auto;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 2px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px 4px 18px 4px;
+            }
+            .header h2 {
+                font-size: 1.3rem;
+            }
+            .details-table th, .details-table td {
+                font-size: 0.98rem;
+                padding: 10px 6px;
+            }
+            .message-section {
+                padding: 14px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>New Contact Us Submission</h2>
+            <p>You have received a new message from your website contact form.</p>
+        </div>
+        <div class="details">
+            <table class="details-table">
+                <tr>
+                    <th>Name:</th>
+                    <td>{{name}}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{email}}</td>
+                </tr>
+                <tr>
+                    <th>Phone:</th>
+                    <td>{{phone}}</td>
+                </tr>
+            </table>
+            <div class="message-section">
+                <h4>Message:</h4>
+                <p>{{message}}</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>Mama Dream Care &copy; 2025</p>
+        </div>
+    </div>
+</body>
+</html>

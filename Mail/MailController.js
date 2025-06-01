@@ -8,19 +8,7 @@ const source = fs.readFileSync(filePath, 'utf8');
 
 const template = handlebars.compile(source);
 
-const replacements = {
-  customer_name: 'Zoheb',
-  order_number: 'MDC123456',
-  order_date: 'August 25, 2025',
-  shipping_address: '123 Dream St, Fantasy City, IN 54321',
-  order_total: '₹1,299',
-  order_link: 'https://mamadreamcare.com/orders/MDC123456',
-  year: new Date().getFullYear(),
-  items: [
-    { name: 'Baby Blanket', quantity: 2, price: '₹499' },
-    { name: 'Feeding Bottle', quantity: 1, price: '₹299' },
-  ],
-};
+
 
 async function sendOrderConfirmationEmail(toEmail, replacements) {
 
@@ -40,7 +28,7 @@ const transporter = nodemailer.createTransport({
 const mailOptions = {
   from: '"Mama Dream Care" <support@mamadreamcare.com>',
   to: toEmail,
-  subject: 'Order Confirmation',
+  subject: `Order Placed #${replacements.order_number}`,
   html: htmlToSend,
 };
 

@@ -17,9 +17,8 @@ exports.createBanner = async (req, res) => {
   const { image } = req.body;
 
   try {
-    await db.query('INSERT INTO banner_images (image) VALUES (?)', [image]);
-    res.status(201).json({ message: 'Banner created successfully' });
-  } catch (err) {
+    const [result] = await db.query('INSERT INTO banner_images (image) VALUES (?)', [image]);
+    res.status(201).json({ message: 'Banner created successfully', id: result.insertId });} catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error creating banner' });
   }

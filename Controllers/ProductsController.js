@@ -113,23 +113,57 @@ exports.deleteProduct = async (req, res) => {
 };
 
 
+// exports.updateRating = async (req, res) => {
+//   const { id } = req.params;
+//   const { rating } = req.body;
+
+//   try {
+//     const [product] = await db.execute('SELECT * FROM products WHERE id = ?', [id]);
+
+//     if (product.length === 0) {
+//       return res.status(404).json({ message: 'Product not exist' });
+//     }
+
+   
+
+//     await db.execute('UPDATE products SET rating = ? WHERE id = ?', [rating, id]);
+//     res.json({ message: 'Rating updated successfully' });
+
+//   } catch (err) {
+//     res.status(500).json({ message: 'Error updating rating' });
+//   }
+// }
+
+
 exports.updateRating = async (req, res) => {
   const { id } = req.params;
   const { rating } = req.body;
 
   try {
-    const [product] = await db.execute('SELECT * FROM products WHERE id = ?', [id]);
+    const [productResult] = await db.execute('SELECT * FROM products WHERE id = ?', [id]);
 
-    if (product.length === 0) {
-      return res.status(404).json({ message: 'Product not exist' });
+    if (productResult.length === 0) {
+      return res.status(404).json({ message: 'Product not found' });
     }
 
-   
+    const product = productResult[0];
+    const currentRating = product.rating || 0;
+    const currentCount = product.rating_count || 0;
 
-    await db.execute('UPDATE products SET rating = ? WHERE id = ?', [rating, id]);
-    res.json({ message: 'Rating updated successfully' });
+    const newCount = currentCount + 1;
+    const newAvgRating = ((currentRating * currentCount) + rating) / newCount;
+
+    const roundedAvg = Math.round(newAvgRating * 2) / 2;
+
+    await db.execute(
+      'UPDATE products SET rating = ?, rating_count = ? WHERE id = ?',
+      [roundedAvg, newCount, id]
+    );
+
+    res.json({ message: 'Rating updated successfully', averageRating: roundedAvg });
 
   } catch (err) {
+    console.error(err);
     res.status(500).json({ message: 'Error updating rating' });
   }
-}
+};

@@ -5,8 +5,10 @@ const db = require('./Db/DbConnection');
 const productRoutes = require('./Routes/ProductsRoutes');
 const categoryRoutes = require('./Routes/CategoryRoutes');
 const bannerRoutes = require('./Routes/BannerRoutes');
+const PromoCodeRoutes=require('./Routes/PromoCodeRoutes');
 const orderRoutes = require('./Routes/OrderRoutes'); // Assuming you have an order routes file
 const TodaysOfferRoutes = require('./Routes/TodaysOfferRoutes'); // Import today's offers routes
+const mailRoutes=require('./Mail/mailRouter');
 const passport = require('passport')
 require('./Config/google-strategy');
 
@@ -23,7 +25,9 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/banners', bannerRoutes);
 app.use('/api/orders', orderRoutes); // Include order routes
+app.use('/api/promocodes', PromoCodeRoutes);
 
+app.use('/api/mail', mailRoutes);
 
 app.get('/', (req, res) => {
     res.send('Welcome to the server!');

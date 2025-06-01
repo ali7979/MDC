@@ -249,7 +249,7 @@ exports.getOrderByUserIdandProductID = async (req, res) => {
     `, [userId, pid]);
 
     if (orders.length === 0) {
-      return res.status(404).json({ message: 'No orders found for this user' });
+      return res.status(200).json({ message: 'No orders found for this user' });
     }
 
     res.json(orders[0]); // Return the most recent order
