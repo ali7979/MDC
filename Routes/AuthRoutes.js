@@ -57,26 +57,32 @@ router.put("/profileupdate", verifyToken, async (req, res) => {
 
 router.put("/addressupdate", verifyToken, async (req, res) => {
   const userId = req.user.id; // Set by verifyToken middleware
-  const { address } = req.body;
+const { address, phone } = req.body;
+
   console.log("Profile update request:", req.body);
 
   if (!address) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Address missing." });
+    return res.status(400).json({ success: false, message: "Address missing." });
   }
 
-  const sql = `
-    UPDATE users 
-    SET  address = ?
-    WHERE id = ?
-  `;
+  // Build SQL dynamically
+  let sql = `UPDATE users SET address = ?`;
+  const values = [address];
+
+  if (phone) {
+    sql += `, phone = ?`;
+    values.push(phone);
+  }
+
+  sql += ` WHERE id = ?`;
+  values.push(userId);
+
   try {
-    await db.execute(sql, [address, userId]);
-    console.log("Address updated successfully:");
+    await db.execute(sql, values);
+    console.log("Address and/or phone updated successfully.");
     return res
       .status(200)
-      .json({ success: true, message: "Address updated successfully." });
+      .json({ success: true, message: "Profile updated successfully." });
   } catch (err) {
     console.error("Error updating user:", err);
     return res
