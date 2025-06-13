@@ -4,7 +4,7 @@ const sendOrderConfirmationEmail = require('../Mail/MailController');
 
 // Create Order (Accessible to authenticated users)
 exports.createOrder = async (req, res) => {
-  const { items, total_price, status,address} = req.body;
+  const { items, total_price, status,address,offerapplied} = req.body;
 
   // Validation for missing fields
   if ( !items || !total_price || !status || !address ) {
@@ -13,7 +13,7 @@ exports.createOrder = async (req, res) => {
 
   try {
     // Insert order into the orders table
-    const [result] = await db.execute('INSERT INTO orders (user_id, total_price, status,address) VALUES (?, ?, ?,?)', [req.user.id, total_price, status ,address]);
+    const [result] = await db.execute('INSERT INTO orders (user_id, total_price, status,address,offerapplied) VALUES (?, ?, ?,?,?)', [req.user.id, total_price, status ,address,offerapplied]);
 
     // Insert order items into the order_items table (handling multiple items)
     for (let item of items) {
@@ -72,6 +72,7 @@ exports.getAllOrders = async (req, res) => {
         u.phone AS user_phone,
         o.status,
         o.total_price,
+        o.offerapplied,
         o.order_date,
         o.address,
         oi.product_id,
@@ -101,6 +102,7 @@ exports.getAllOrders = async (req, res) => {
           address: row.address,
           user_name: row.user_name,
           user_phone: row.user_phone,
+          offerapplied:row.offerapplied,
           items: []
         };
       }
@@ -150,7 +152,7 @@ const id=req.user.id
          , 
         [id]
       );
-    if (orders.length === 0) return res.status(404).json({ message: 'Order not found' });
+    if (orders.length === 0) return res.status(200).json('-1');
 
     // Fetch the order items for the given order ID
    // const [orderItems] = await db.execute('SELECT * FROM order_items WHERE order_id = ?', [id]);
