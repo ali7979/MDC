@@ -10,7 +10,9 @@ const [products] = await db.execute(
        ELSE false
    END AS isTopOffer
    FROM products p
-   LEFT JOIN todaysoffer toff ON p.id = toff.product_id`);
+   LEFT JOIN todaysoffer toff ON p.id = toff.product_id
+   ORDER BY p.id DESC`
+);
    console.log(products);
     res.json(products);
   } catch (err) {
