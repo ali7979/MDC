@@ -23,7 +23,7 @@ const [products] = await db.execute(
 
 exports.getAllProductssix = async (req, res) => {
   try {
-    const [products] = await db.execute('SELECT p.*FROM newprod nps JOIN products p ON nps.product_id = p.id ORDER BY nps.position ASC');
+    const [products] = await db.execute('SELECT p.*,nps.newdesc FROM newprod nps JOIN products p ON nps.product_id = p.id ORDER BY nps.position ASC');
     res.json(products);
   } catch (err) {
     res.status(500).json({ message: 'Error fetching products' });
