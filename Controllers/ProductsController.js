@@ -30,6 +30,42 @@ exports.getAllProductssix = async (req, res) => {
   }
 };
 
+
+exports.updateProductssix= async (req, res) => {
+  const position = parseInt(req.params.position);
+  const { product_id, newdesc } = req.body;
+
+  if (!product_id || !newdesc || position < 1 || position > 6) {
+    return res.status(400).json({ message: 'Invalid input' });
+  }
+
+  try {
+    // Check if a record at this position already exists
+    const [existing] = await db.query('SELECT * FROM featured_products WHERE position = ?', [position]);
+
+    if (existing.length > 0) {
+      // Update the existing entry
+      await db.query(
+        'UPDATE newprod SET product_id = ?, newdesc = ? WHERE position = ?',
+        [product_id, newdesc, position]
+      );
+    } else {
+      // Insert new if position not found
+      await db.query(
+        'INSERT INTO newprod (product_id, position, newdesc) VALUES (?, ?, ?)',
+        [product_id, position, newdesc]
+      );
+    }
+
+    res.status(200).json({ message: 'Featured product updated successfully' });
+  } catch (error) {
+    console.error('Error updating featured product:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
+
+
 exports.getProductById = async (req, res) => {
   const { id } = req.params;
   try {
