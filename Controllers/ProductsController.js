@@ -41,7 +41,7 @@ exports.updateProductssix= async (req, res) => {
 
   try {
     // Check if a record at this position already exists
-    const [existing] = await db.query('SELECT * FROM featured_products WHERE position = ?', [position]);
+    const [existing] = await db.query('SELECT * FROM newprod WHERE position = ?', [position]);
 
     if (existing.length > 0) {
       // Update the existing entry
