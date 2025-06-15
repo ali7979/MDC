@@ -202,7 +202,7 @@ const id=req.user.id
 
 
 exports.getOrderByOrderId = async (req, res) => {
-  const { orderid } = req.params;
+  const {id}  = req.params;
 
   try {
     const [orders] = await db.execute(
@@ -225,7 +225,7 @@ exports.getOrderByOrderId = async (req, res) => {
        JOIN products p ON oi.product_id = p.id
        WHERE o.id = ?
        ORDER BY oi.id DESC`,
-      [orderid]
+      [id]
     );
 
     if (orders.length === 0) return res.status(404).json({ message: 'Order not found' });
