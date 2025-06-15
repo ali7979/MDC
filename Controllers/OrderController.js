@@ -139,6 +139,8 @@ const id=req.user.id
            o.total_price,
            o.order_date,
            o.address,
+                   o.offerapplied,
+
            p.id AS product_id,
            p.name AS product_name,
            p.image_url AS product_image,
@@ -170,6 +172,7 @@ const id=req.user.id
           total_price: row.total_price,
           order_date: row.order_date,
           address: row.address,
+          offerapplied:row.offerapplied,
           items: []
         };
       }

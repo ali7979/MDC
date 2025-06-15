@@ -6,6 +6,7 @@ const { verifyToken, isAdmin } = require('../Middleware/AuthMiddleware');
 // PUBLIC
 router.get('/', productController.getAllProducts);
 router.get('/six', productController.getAllProductssix);
+
 router.put('/products/six/:position', productController.updateProductssix)
 
 

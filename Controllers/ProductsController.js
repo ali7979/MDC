@@ -31,6 +31,8 @@ exports.getAllProductssix = async (req, res) => {
 };
 
 
+
+
 exports.updateProductssix= async (req, res) => {
   const position = parseInt(req.params.position);
   const { product_id, newdesc } = req.body;
