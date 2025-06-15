@@ -198,6 +198,70 @@ const id=req.user.id
   }
 };
 
+
+
+
+exports.getOrderByOrderId = async (req, res) => {
+  const { orderid } = req.params;
+
+  try {
+    const [orders] = await db.execute(
+      `SELECT 
+         o.id AS order_id, 
+         o.user_id,
+         o.status,
+         o.total_price,
+         o.order_date,
+         o.address,
+         o.offerapplied,
+         p.id AS product_id,
+         p.name AS product_name,
+         p.image_url AS product_image,
+         oi.quantity,
+         oi.mrp, 
+         oi.price
+       FROM orders o
+       JOIN order_items oi ON o.id = oi.order_id
+       JOIN products p ON oi.product_id = p.id
+       WHERE o.id = ?
+       ORDER BY oi.id DESC`,
+      [orderid]
+    );
+
+    if (orders.length === 0) return res.status(404).json({ message: 'Order not found' });
+
+    const order = {
+      order_id: orders[0].order_id,
+      user_id: orders[0].user_id,
+      status: orders[0].status,
+      total_price: orders[0].total_price,
+      order_date: orders[0].order_date,
+      address: orders[0].address,
+      offerapplied: orders[0].offerapplied,
+      items: orders.map(row => ({
+        product_id: row.product_id,
+        product_name: row.product_name,
+        product_image: row.product_image,
+        quantity: row.quantity,
+        mrp: row.mrp,
+        price: row.price
+      }))
+    };
+
+    res.json(order);
+
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error fetching order' });
+  }
+};
+
+
+
+
+
+
+
 // Update Order (Admin only)
 exports.updateOrder = async (req, res) => {
   const { id } = req.params;

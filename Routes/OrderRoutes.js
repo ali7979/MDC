@@ -13,7 +13,7 @@ router.get('/uandp/:pid', verifyToken, orderController.getOrderByUserIdandProduc
 
 
 // Get Single Order by ID (Accessible to authenticated users)
-router.get('/:id', verifyToken, orderController.getOrderById);
+router.get('/:id', verifyToken, orderController.getOrderByOrderId);
 
 // Create Order (Accessible to authenticated users, no admin required)
 router.post('/', verifyToken, orderController.createOrder);
