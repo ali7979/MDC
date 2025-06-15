@@ -57,12 +57,12 @@ router.put("/profileupdate", verifyToken, async (req, res) => {
 
 router.put("/addressupdate", verifyToken, async (req, res) => {
   const userId = req.user.id; // Set by verifyToken middleware
-const { address, phone } = req.body;
+const { address, phone,name } = req.body;
 
   console.log("Profile update request:", req.body);
 
-  if (!address) {
-    return res.status(400).json({ success: false, message: "Address missing." });
+  if (!address || !phone || !name) {
+    return res.status(400).json({ success: false, message: "Details missing." });
   }
 
   // Build SQL dynamically
@@ -72,6 +72,10 @@ const { address, phone } = req.body;
   if (phone) {
     sql += `, phone = ?`;
     values.push(phone);
+  }
+ if (name) {
+    sql += `, name = ?`;
+    values.push(name);
   }
 
   sql += ` WHERE id = ?`;
