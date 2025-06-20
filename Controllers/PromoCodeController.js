@@ -54,8 +54,8 @@ exports.createPromoCode = async (req, res) => {
         }
 
         const [result] = await db.query(
-            'INSERT INTO coupons (code, discount_percent,min_purchase,description) VALUES (?, ?, ?, ?)',
-            [code, discount_percent,min_purchase,description]
+            'INSERT INTO coupons (code, discount_percent,min_purchase,description,max_discount) VALUES (?, ?, ?, ?,?)',
+            [code, discount_percent,min_purchase,description,max_discount]
         );
         
         res.status(201).json({
