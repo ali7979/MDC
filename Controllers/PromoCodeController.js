@@ -64,6 +64,7 @@ exports.createPromoCode = async (req, res) => {
             code,
             discount_percent,
             min_purchase,
+            max_amount,
             description
         });
     } catch (error) {
