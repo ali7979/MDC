@@ -42,7 +42,7 @@ exports.validateCode = async (req, res) => {
 // Create a new promo code
 exports.createPromoCode = async (req, res) => {
     try {
-        const { code, discount_percent,min_purchase,description } = req.body;
+        const { code, discount_percent,min_purchase,description,max_amount } = req.body;
         if (!code || discount_percent == null || !min_purchase) {
             return res.status(400).json({ message: 'All Details are required.' });
         }
@@ -54,8 +54,8 @@ exports.createPromoCode = async (req, res) => {
         }
 
         const [result] = await db.query(
-            'INSERT INTO coupons (code, discount_percent,min_purchase,description,max_discount) VALUES (?, ?, ?, ?,?)',
-            [code, discount_percent,min_purchase,description,max_discount]
+            'INSERT INTO coupons (code, discount_percent,min_purchase,description,max_amount) VALUES (?, ?, ?, ?,?)',
+            [code, discount_percent,min_purchase,description,max_amount]
         );
         
         res.status(201).json({
