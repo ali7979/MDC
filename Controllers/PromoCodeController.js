@@ -33,7 +33,7 @@ exports.validateCode = async (req, res) => {
         // }
 
       
-        res.json({ message: 'Promo code is valid.', discount: promo.discount_percent ,min_purchase:promo.min_purchase,description:promo.description});
+        res.json({ message: 'Promo code is valid.', discount: promo.discount_percent ,min_purchase:promo.min_purchase,description:promo.description,max_amount:promo.max_amount });
     } catch (error) {
         res.status(500).json({ message: 'Server error.', error: error.message });
     }
