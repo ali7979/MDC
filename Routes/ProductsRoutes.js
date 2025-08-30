@@ -19,4 +19,7 @@ router.put('/updaterating/:id', verifyToken, productController.updateRating);
 
 router.delete('/delete/:id', verifyToken, isAdmin, productController.deleteProduct);
 
+router.put('/update-display-order', verifyToken, productController.updateDisplayOrder);
+
+
 module.exports = router;

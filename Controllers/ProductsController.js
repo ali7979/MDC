@@ -207,3 +207,35 @@ exports.updateRating = async (req, res) => {
     res.status(500).json({ message: 'Error updating rating' });
   }
 };
+
+
+exports.updateDisplayOrder = async (req, res) => {
+  const {displayOrderList} = req.body; // Expecting an array of { id, displayOrder }
+console.log("Received display order list:", displayOrderList);
+  if (!Array.isArray(displayOrderList) || displayOrderList.length === 0) {
+    return res.status(400).json({ message: 'Invalid input' });
+  }
+
+  const connection = await db.getConnection();
+  try {
+    await connection.beginTransaction();
+
+    const updatePromises = displayOrderList.map(({ id, displayOrder }) =>
+      connection.execute('UPDATE products SET displayOrder = ? WHERE id = ?', [displayOrder, id])
+    );
+
+    await Promise.all(updatePromises);
+    await connection.commit();
+
+    res.json({ message: 'Display order updated successfully' });
+
+  } catch (error) {
+    await connection.rollback();
+    console.error('Error updating display order:', error);
+    res.status(500).json({ message: 'Server error' });
+  } finally {
+    connection.release();
+  }
+
+
+}
