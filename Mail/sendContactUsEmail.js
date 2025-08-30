@@ -22,10 +22,10 @@ const transporter = nodemailer.createTransport({
 });
 
   const mailOptions = {
-    from: `"Mama Dream Care" <support@mamadreamcare.com>`,
+   from: '"Mama Dream Care" <support@mamadreamcare.com>',
     to: 'support@mamadreamcare.com', // send to your support inbox
-    cc:'aliperwez86@gmail.com ,zohebzob@gmail.com',
-    subject: `New Contact Us Message from ${contactData.name}`,
+  cc: ['aliperwez86@gmail.com', 'zohebzob@gmail.com'],
+   subject: `New Contact Us Message from ${contactData.name}`,
     html: htmlToSend,
   };
 
